@@ -23,7 +23,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,7 +44,7 @@ public class StudentControllerTest extends AbstractControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        setUp(mStudentController);
+        setUpMvc(mStudentController);
 
         // mock the student repository to provide a list of 3 students.
         mStudentList = new ArrayList<>();

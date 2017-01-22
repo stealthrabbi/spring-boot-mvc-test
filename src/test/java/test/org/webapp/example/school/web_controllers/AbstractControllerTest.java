@@ -25,11 +25,11 @@ public abstract class AbstractControllerTest extends AbstractSpringTest {
     @Autowired
     protected WebApplicationContext webApplicationContext;
 
-    protected void setUp() {
+    protected void setUpMvc() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    protected void setUp(Object controller) {
+    protected void setUpMvc(Object controller) {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
