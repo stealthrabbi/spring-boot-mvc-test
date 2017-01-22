@@ -40,20 +40,25 @@ public abstract class AbstractControllerTest extends AbstractSpringTest {
      * @param clazz A Class of type T. The mapper will attempt to convert the
      *        JSON into an Object of this Class type.
      * @return An Object of type T.
-     * @throws JsonParseException Thrown if an error occurs while mapping.
-     * @throws JsonMappingException Thrown if an error occurs while mapping.
      * @throws IOException Thrown if an error occurs while mapping.
      */
     protected <T> T mapFromJson(String json, Class<T> clazz)
-            throws JsonParseException, JsonMappingException, IOException {
+            throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(json, clazz);
     }
 
+    /**
+     * Maps the provided json string in to a List of the specified type, T
+     * @param json A String of JSON
+     * @param clazz A Class of type T
+     * @param <T> The type T (same as clazz)
+     * @return List of type T
+     * @throws IOException Thrown if an error occurs while mapping.
+     */
     protected <T> List<T> mapFromJsonToList(String json, Class<T> clazz) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
-        List<T> returnList = mapper.readValue(json, TypeFactory.defaultInstance().constructCollectionType(List.class, clazz));
-        return returnList;
+        return mapper.readValue(json, TypeFactory.defaultInstance().constructCollectionType(List.class, clazz));
     }
 }

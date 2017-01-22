@@ -7,7 +7,7 @@ buildscript {
     }
 }
 
-group 'SpringWebAppDemo'
+group 'spring-boot-mvc-test'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
