@@ -12,12 +12,19 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
 // Note: to run spring boot app, just type `./gradlew bootRun`, and browse http://localhost:8080/
 // to build and test, run ./gradlew build
 // clean, run ./gradelw clean
 
 repositories {
     mavenCentral()
+}
+
+war {
+    baseName = 'MyStudentTestApp'
+    version =  '1.0.0'
 }
 
 dependencies {
@@ -30,8 +37,10 @@ dependencies {
     // black magic for auto converting of my classes, such as Student, in to JSON. Just needs to be on the classpath
     // No manual "usage"
     // This overrides use of "standard" jaxb2
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.6'
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.8.6'
+    // Note: Apparrently spring boot 1.4.3 includes jackson 2.8.5. If you want to use a newer version (currently 2.8.6 is latest)
+    // then you can specify the versions here.
+//    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.6'
+//    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.8.6'
 
 
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.5.RELEASE'
