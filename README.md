@@ -1,6 +1,8 @@
 # spring-boot-mvc-test
 A Test Spring Boot application that uses Spring MVC Controllers and unit tested.
 
+![unit test result badge](https://travis-ci.org/stealthrabbi/spring-boot-mvc-test.svg?branch=master)
+
 ## Build and Test
 
 * To build and test, from the root of the repository, run `./gradlew build`.
