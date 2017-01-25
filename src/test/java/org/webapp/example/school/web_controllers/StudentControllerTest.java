@@ -1,4 +1,4 @@
-package test.org.webapp.example.school.web_controllers;
+package org.webapp.example.school.web_controllers;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,10 +6,11 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.servlet.MvcResult;
 import org.webapp.example.school.data_repository.StudentRepository;
 import org.webapp.example.school.domain_model.Student;
-import org.webapp.example.school.web_controllers.StudentController;
 
 
 import java.util.ArrayList;
@@ -27,11 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by Mark on 1/22/2017.
+ * Unit test class for {@link StudentController}.
  */
 public class StudentControllerTest extends AbstractControllerTest {
 
-    @Mock
+    // Need to use @Mock, rather than @MockBean to auto create a mock and inject it in to a Bean in to StudentController
+    @MockBean
     private StudentRepository mStudentRepository;
 
     @InjectMocks
@@ -43,8 +45,6 @@ public class StudentControllerTest extends AbstractControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-
-        setUpMvc(mStudentController);
 
         // mock the student repository to provide a list of 3 students.
         mStudentList = new ArrayList<>();
