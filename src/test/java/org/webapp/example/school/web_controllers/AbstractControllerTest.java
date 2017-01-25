@@ -1,37 +1,26 @@
-package test.org.webapp.example.school.web_controllers;
+package org.webapp.example.school.web_controllers;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import test.org.webapp.example.school.AbstractSpringTest;
+import org.webapp.example.school.AbstractSpringTest;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Mark on 1/22/2017.
+ * Base spring test that uses an autowired MockMVC bean, and some helper methods for rebuilding JSON strings
+ * in to java objects and lists of java objects.
  */
-@WebAppConfiguration
+@SpringBootTest
+@AutoConfigureMockMvc
 public abstract class AbstractControllerTest extends AbstractSpringTest {
 
-    protected MockMvc mockMvc;
-
     @Autowired
-    protected WebApplicationContext webApplicationContext;
-
-    protected void setUpMvc() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    protected void setUpMvc(Object controller) {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
+    protected MockMvc mockMvc;
 
     /**
      * Maps a String of JSON into an instance of a Class of type T. Uses a
