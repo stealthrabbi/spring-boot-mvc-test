@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.webapp.example.school.AbstractSpringTest;
+import org.webapp.example.school.AbstractSpringBootTest;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,9 +14,8 @@ import java.util.List;
  * Base spring test that uses an autowired MockMVC bean, and some helper methods for rebuilding JSON strings
  * in to java objects and lists of java objects.
  */
-@SpringBootTest
 @AutoConfigureMockMvc
-public abstract class AbstractControllerTest extends AbstractSpringTest {
+public abstract class AbstractControllerTest extends AbstractSpringBootTest {
 
     @Autowired
     protected MockMvc mockMvc;

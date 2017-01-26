@@ -44,7 +44,8 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        // Prior to JUnit 4.5 Runner, you'd have to call MockitoAnnotations.initMocks(this) to initialize @Mocks and wire them in.
+        // MockitoAnnotations.initMocks(this);
 
         // mock the student repository to provide a list of 3 students.
         mStudentList = new ArrayList<>();

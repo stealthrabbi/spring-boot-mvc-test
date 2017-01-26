@@ -1,5 +1,7 @@
 # spring-boot-mvc-test
-A Test Spring Boot application that uses Spring MVC Controllers and unit tested.
+A Test Spring Boot application that uses Spring MVC Controllers and is unit tested.
+
+There's also an example of populating a spring bean with values from a properties file (`AppPropertiesContainer`).
 
 ![unit test result badge](https://travis-ci.org/stealthrabbi/spring-boot-mvc-test.svg?branch=master)
 
