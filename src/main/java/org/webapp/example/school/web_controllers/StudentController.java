@@ -20,9 +20,17 @@ import java.util.List;
 @Controller
 @RequestMapping("students")
 public class StudentController {
+    private final StudentRepository mStudentRepository;
 
+    // The field mStudentRepository could be @Autowired, but it's unclear what the dependencies
+    // are to the user of the class, and it becomes impossible to use the class without using spring. It would hide
+    // dependencies and potentially violate Single repsonsibility principle as it is almost too easy to add more
+    // autowired dependencies, and the list of depedencies could grow somewhat unchecked by simply adding
+    // more and more autowired fields.
     @Autowired
-    private StudentRepository mStudentRepository;
+    public StudentController(StudentRepository studentRepository) {
+        mStudentRepository = studentRepository;
+    }
 
     // ResponseBody is sufficent, because we'll always return a 200-OK response
     @RequestMapping(value = "list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
