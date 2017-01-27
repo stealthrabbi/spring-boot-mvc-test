@@ -1,8 +1,6 @@
 package org.webapp.example.school.web_controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +25,7 @@ public class RootController {
                 mAppPropertiesContainer.getAppName());
         return "If you're reading this, the " + webAppName +  "is on. <BR><BR>" +
                 "Trying viewing students <a href = students/list>here</a> <BR><BR>" +
-                "Or viewing a <a href = students/Steve>specific student</a>.";
+                "Or viewing a <a href = students/Steve>specific student</a>. <BR><BR>" +
+                "For extra credit, here's an <a href = student-records.html>HTML page making a rest call using jQuery</a>";
     }
 }

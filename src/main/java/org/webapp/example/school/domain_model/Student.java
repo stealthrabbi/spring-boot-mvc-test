@@ -1,5 +1,6 @@
 package org.webapp.example.school.domain_model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -9,12 +10,17 @@ import java.util.Date;
  */
 public class Student {
 
-    // Note, tehse Jackson JSON Properties are optional
+    // Note, these Jackson JSON Properties are optional. Without them, they use the java field name.
     @JsonProperty("name")
     private String mName;
 
     @JsonProperty("DOB")
+    // without JsonFormat, it would return as the default serialization for Date, which would be ms since epoch.
+    // that's probably a preferable format, but this is stricly for demonstrative purposes with Jackson
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Date mBirthDate;
+
+    @JsonProperty("SSN")
     private String mSocialSecurityNumber;
 
     public Student() {

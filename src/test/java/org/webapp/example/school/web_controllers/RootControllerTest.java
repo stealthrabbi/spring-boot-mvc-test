@@ -47,4 +47,7 @@ public class RootControllerTest extends AbstractControllerTest {
                 .andExpect(content().string(containsString(TEST_SHORT_NAME)))
                 .andExpect(status().isOk());
     }
+
+
+
 }
