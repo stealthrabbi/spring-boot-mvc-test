@@ -1,16 +1,18 @@
 package org.webapp.example.school.web_controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.webapp.example.school.data_repository.StudentRepository;
 import org.webapp.example.school.domain_model.Student;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,13 @@ import java.util.List;
 @Controller
 @RequestMapping("students")
 public class StudentController {
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+
     private final StudentRepository mStudentRepository;
 
     // The field mStudentRepository could be @Autowired, but it's unclear what the dependencies
@@ -51,12 +60,14 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @RequestMapping(value = "name-find-2/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Student getStudent2(@PathVariable String name) {
-        Student student = mStudentRepository.getStudent(name);
-
-        if (null == student) {
+    @RequestMapping(value = "add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addStudent(@ModelAttribute Student student) {
+        if (null == student || StringUtils.isEmpty(student.getName())
+                            || StringUtils.isEmpty(student.getBirthDate())
+                            || StringUtils.isEmpty(student.getSocialSecurityNumber())) {
+            return ResponseEntity.badRequest().body("no student given");
         }
-        return student;
+        mStudentRepository.addStudent(student);
+        return ResponseEntity.ok(student);
     }
 }

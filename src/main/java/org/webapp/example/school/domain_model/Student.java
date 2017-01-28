@@ -6,21 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 /**
- * Created by Mark on 1/22/2017.
+ * Student class. {@link JsonProperty} are used on the getters because the default Jackson object mapper
+ * pulls the values from fields. If I put the {@link JsonProperty} on the fields, then I'd see the properties
+ * twice in the JSON (different names). I'd rather stay with the default, so the properties are named on the getters.
  */
 public class Student {
 
     // Note, these Jackson JSON Properties are optional. Without them, they use the java field name.
-    @JsonProperty("name")
     private String mName;
-
-    @JsonProperty("DOB")
-    // without JsonFormat, it would return as the default serialization for Date, which would be ms since epoch.
-    // that's probably a preferable format, but this is stricly for demonstrative purposes with Jackson
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Date mBirthDate;
-
-    @JsonProperty("SSN")
     private String mSocialSecurityNumber;
 
     public Student() {
@@ -32,28 +26,32 @@ public class Student {
         this.mSocialSecurityNumber = mSocialSecurityNumber;
     }
 
-
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
+    public void setName(String mName) {
         this.mName = mName;
     }
 
-    public Date getmBirthDate() {
+    // without JsonFormat, it would return as the default serialization for Date, which would be ms since epoch.
+    // that's probably a preferable format, but this is stricly for demonstrative purposes with Jackson
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonProperty("DOB")
+    public Date getBirthDate() {
         return mBirthDate;
     }
 
-    public void setmBirthDate(Date mBirthDate) {
+    public void setBirthDate(Date mBirthDate) {
         this.mBirthDate = mBirthDate;
     }
 
-    public String getmSocialSecurityNumber() {
+    @JsonProperty("SSN")
+    public String getSocialSecurityNumber() {
         return mSocialSecurityNumber;
     }
 
-    public void setmSocialSecurityNumber(String mSocialSecurityNumber) {
+    public void setSocialSecurityNumber(String mSocialSecurityNumber) {
         this.mSocialSecurityNumber = mSocialSecurityNumber;
     }
 }

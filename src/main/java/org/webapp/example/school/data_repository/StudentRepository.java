@@ -11,4 +11,5 @@ public interface StudentRepository {
 
     List<Student> getAllStudents();
     Student getStudent(String name);
+    void addStudent(Student student);
 }

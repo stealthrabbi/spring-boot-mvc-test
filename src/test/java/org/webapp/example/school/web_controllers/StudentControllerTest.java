@@ -3,11 +3,10 @@ package org.webapp.example.school.web_controllers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.servlet.MvcResult;
 import org.webapp.example.school.data_repository.StudentRepository;
 import org.webapp.example.school.domain_model.Student;
@@ -20,7 +19,9 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -38,6 +39,9 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @InjectMocks
     private StudentController mStudentController;
+
+    @Captor
+    private ArgumentCaptor<Student> studentCaptor;
 
     private List<Student> mStudentList;
 
@@ -81,7 +85,7 @@ public class StudentControllerTest extends AbstractControllerTest {
         List<Student> students = mapFromJsonToList(content, Student.class);
         for (int i = 0; i < students.size(); i++) {
             Student student1 = students.get(i);
-            Assert.assertEquals(mStudentList.get(i).getmName(), student1.getmName());
+            assertEquals(mStudentList.get(i).getName(), student1.getName());
         }
     }
 
@@ -103,5 +107,33 @@ public class StudentControllerTest extends AbstractControllerTest {
                     .andExpect(status().isBadRequest())
                     .andReturn();
 
+    }
+
+    @Test
+    public void addStudent() throws Exception {
+        mockMvc.perform(post("/students/add")
+            .param("name", "Urist McTester")
+            .param("socialSecurityNumber", "12345")
+            .param("birthDate", "2010-04-05"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            // note, this is testing the JSON properties with the specific names defined in Student class
+            .andExpect(jsonPath("$.name", is("Urist McTester")))
+            .andExpect(jsonPath("$.SSN", is("12345")))
+            .andExpect(jsonPath("$.DOB", is("2010-04-05")));
+
+        ArgumentCaptor<Student> studentCaptor = ArgumentCaptor.forClass(Student.class);
+        verify(mStudentRepository).addStudent(studentCaptor.capture());
+
+        assertEquals("The student repository wasn't called to add the student",
+                "Urist McTester", studentCaptor.getValue().getName());
+    }
+
+    @Test
+    public void addStudentMissingParametersBadRequest() throws Exception {
+        mockMvc.perform(post("/students/add")
+                .param("name", "Urist McTester2"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }
