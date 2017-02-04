@@ -1,6 +1,5 @@
 package org.webapp.example.school.web_controllers;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -20,7 +19,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -91,22 +89,19 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @Test
     public void getStudentByName_ValidName() throws Exception {
-        MvcResult result =
-            mockMvc.perform(get("/students/{name}", "Peter Venkman"))
-                .andDo(print())
-                .andExpect(jsonPath("$.name", is("Peter Venkman")))
-                .andExpect(status().isOk())
-                .andReturn();
+        mockMvc.perform(get("/students/{name}", "Peter Venkman"))
+            .andDo(print())
+            .andExpect(jsonPath("$.name", is("Peter Venkman")))
+            .andExpect(status().isOk())
+            .andReturn();
     }
 
     @Test
     public void getStudentByName_InValidName() throws Exception {
-        MvcResult result =
-            mockMvc.perform(get("/students/{name}", "Random Name"))
-                    .andDo(print())
-                    .andExpect(status().isBadRequest())
-                    .andReturn();
-
+        mockMvc.perform(get("/students/{name}", "Random Name"))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andReturn();
     }
 
     @Test

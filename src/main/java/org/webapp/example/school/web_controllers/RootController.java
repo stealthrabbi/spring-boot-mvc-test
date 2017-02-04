@@ -2,16 +2,12 @@ package org.webapp.example.school.web_controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.webapp.example.school.AppPropertiesContainer;
 
-/**
- * Created by Mark on 1/22/2017.
- */
-@Controller
+@RestController
 @RequestMapping("")
 public class RootController {
 
@@ -19,7 +15,7 @@ public class RootController {
     private AppPropertiesContainer mAppPropertiesContainer;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public @ResponseBody String greeting() {
+    public String greeting() {
 
         String webAppName = String.format("%s (%s}", mAppPropertiesContainer.getShortAppName(),
                 mAppPropertiesContainer.getAppName());

@@ -16,11 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Mark on 1/22/2017.
- */
-
-@Controller
+// This marks it as a Controller, and also makes methods return JSON by default and eliminates the need for making
+// return values with @ResponseBody
+@RestController
 @RequestMapping("students")
 public class StudentController {
 
@@ -43,14 +41,14 @@ public class StudentController {
     }
 
     // ResponseBody is sufficent, because we'll always return a 200-OK response
-    @RequestMapping(value = "list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<Student> listStudents() {
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public List<Student> listStudents() {
         return mStudentRepository.getAllStudents();
     }
 
 
     // Use ResponseEntity<> here to return a non-OK code when student is not found.
-    @RequestMapping(value = "{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "{name}", method = RequestMethod.GET)
     public ResponseEntity<?> getStudent(@PathVariable String name) {
         Student student = mStudentRepository.getStudent(name);
 
@@ -60,7 +58,7 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseEntity<?> addStudent(@ModelAttribute Student student) {
         if (null == student || StringUtils.isEmpty(student.getName())
                             || StringUtils.isEmpty(student.getBirthDate())
