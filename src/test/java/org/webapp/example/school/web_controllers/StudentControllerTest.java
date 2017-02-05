@@ -99,9 +99,9 @@ public class StudentControllerTest extends AbstractControllerTest {
     @Test
     public void getStudentByName_InValidName() throws Exception {
         mockMvc.perform(get("/students/{name}", "Random Name"))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andReturn();
+            .andDo(print())
+            .andExpect(status().isBadRequest())
+            .andReturn();
     }
 
     @Test

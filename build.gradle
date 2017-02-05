@@ -31,13 +31,14 @@ dependencies {
 
     // spring-boot contains many spring components, such as core spring, spring mvc, spring test
     // jackson for JSON testing, etc.
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.4.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.1.RELEASE'
+
 
     // the default spring-boot-starter (embedded web container) is Tomcat. If you want to run in an
     // embedded Jetty server, add this depdency below. Other web starters exist as well.
 //    providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: '1.4.3.RELEASE'
 
     // use spring-boot-test. no need to use 'spring-test'
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.1.RELEASE'
 }

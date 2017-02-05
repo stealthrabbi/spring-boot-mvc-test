@@ -22,9 +22,10 @@ import java.util.List;
 @RequestMapping("students")
 public class StudentController {
 
+    // This will auto convert a string matching the specified date format in to a java.util.Date.
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Student.DATE_FORMAT);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 

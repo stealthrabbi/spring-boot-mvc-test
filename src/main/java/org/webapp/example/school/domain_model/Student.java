@@ -17,6 +17,9 @@ public class Student {
     private Date mBirthDate;
     private String mSocialSecurityNumber;
 
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+
     public Student() {
     }
 
@@ -36,7 +39,7 @@ public class Student {
 
     // without JsonFormat, it would return as the default serialization for Date, which would be ms since epoch.
     // that's probably a preferable format, but this is stricly for demonstrative purposes with Jackson
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     @JsonProperty("DOB")
     public Date getBirthDate() {
         return mBirthDate;
