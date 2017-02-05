@@ -5,6 +5,7 @@ import org.webapp.example.school.domain_model.Student;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Component
@@ -15,6 +16,7 @@ public class StudentRepositoryImpl implements StudentRepository {
         mStudentList = new ArrayList<Student>();
         mStudentList.add(new Student("Steve", new Date(), "123-45-6789"));
         mStudentList.add(new Student("Martin Fowler", new Date(), "999-45-6789"));
+        mStudentList.add(new Student("Leeroy Jenkins", new GregorianCalendar(2005, 5, 11).getTime(), "000-00-0001"));
     }
 
     @Override
