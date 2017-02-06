@@ -3,14 +3,11 @@ package org.webapp.example.school.web_controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.webapp.example.school.data_repository.StudentRepository;
 import org.webapp.example.school.domain_model.Student;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,14 +39,14 @@ public class StudentController {
     }
 
     // ResponseBody is sufficent, because we'll always return a 200-OK response
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @GetMapping(value = "list")
     public List<Student> listStudents() {
         return mStudentRepository.getAllStudents();
     }
 
 
     // Use ResponseEntity<> here to return a non-OK code when student is not found.
-    @RequestMapping(value = "{name}", method = RequestMethod.GET)
+    @GetMapping(value = "{name}")
     public ResponseEntity<?> getStudent(@PathVariable String name) {
         Student student = mStudentRepository.getStudent(name);
 
@@ -59,7 +56,7 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PostMapping(value = "add")
     public ResponseEntity<?> addStudent(@ModelAttribute Student student) {
         if (null == student || StringUtils.isEmpty(student.getName())
                             || StringUtils.isEmpty(student.getBirthDate())
