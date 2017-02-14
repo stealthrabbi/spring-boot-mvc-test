@@ -1,10 +1,4 @@
-package org.webapp.example.school.web_controllers;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.webapp.example.school.AppPropertiesContainer;
+package org.webapp.example.school.web.controllers;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
@@ -12,6 +6,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.webapp.example.school.AppPropertiesContainer;
+
 
 /**
  * Tests the {@link RootController} using a mocked bean for the {@link AppPropertiesContainer}.
@@ -36,18 +37,15 @@ public class RootControllerTest extends AbstractControllerTest {
     /**
      * Verifies the RootController's greeting message contains the application names as provided by
      * its spring bean for the app properties container.
-     * @throws Exception
+     * @throws Exception exception occurs
      */
     @Test
     public void greeting() throws Exception {
 
-        mockMvc.perform(get("/"))
+        mMockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(content().string(containsString(TEST_NAME)))
                 .andExpect(content().string(containsString(TEST_SHORT_NAME)))
                 .andExpect(status().isOk());
     }
-
-
-
 }

@@ -1,4 +1,16 @@
-package org.webapp.example.school.web_controllers;
+package org.webapp.example.school.web.controllers;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,21 +22,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.webapp.example.school.data.repository.StudentRepository;
 import org.webapp.example.school.domain.Student;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Unit test class for {@link StudentController}.
@@ -39,11 +39,14 @@ public class StudentControllerTest extends AbstractControllerTest {
     private StudentController mStudentController;
 
     @Captor
-    private ArgumentCaptor<Student> studentCaptor;
+    private ArgumentCaptor<Student> mStudentCaptor;
 
     private List<Student> mStudentList;
 
 
+    /**
+     * Sets up the mock repository with some fake data.
+     */
     @Before
     public void setUp() {
         // Prior to JUnit 4.5 Runner, you'd have to call MockitoAnnotations.initMocks(this) to initialize @Mocks and wire them in.
@@ -61,10 +64,11 @@ public class StudentControllerTest extends AbstractControllerTest {
     }
 
 
+
     @Test
     public void listStudents() throws Exception {
         MvcResult result =
-            mockMvc.perform(get("/students/list"))
+            mMockMvc.perform(get("/students/list"))
             .andDo(print())
             .andExpect(jsonPath("$", hasSize(mStudentList.size())))
             .andExpect(jsonPath("$.[*].name", hasItems("Peter Venkman", "Egon Spengler", "Raymond Stantz", "Winston Zeddemore")))
@@ -89,7 +93,7 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @Test
     public void getStudentByName_ValidName() throws Exception {
-        mockMvc.perform(get("/students/{name}", "Peter Venkman"))
+        mMockMvc.perform(get("/students/{name}", "Peter Venkman"))
             .andDo(print())
             .andExpect(jsonPath("$.name", is("Peter Venkman")))
             .andExpect(status().isOk())
@@ -98,7 +102,7 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @Test
     public void getStudentByName_InValidName() throws Exception {
-        mockMvc.perform(get("/students/{name}", "Random Name"))
+        mMockMvc.perform(get("/students/{name}", "Random Name"))
             .andDo(print())
             .andExpect(status().isBadRequest())
             .andReturn();
@@ -106,7 +110,7 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @Test
     public void addStudent() throws Exception {
-        mockMvc.perform(post("/students/add")
+        mMockMvc.perform(post("/students/add")
             .param("name", "Urist McTester")
             .param("socialSecurityNumber", "12345")
             .param("birthDate", "2010-04-05"))
@@ -126,7 +130,7 @@ public class StudentControllerTest extends AbstractControllerTest {
 
     @Test
     public void addStudentMissingParametersBadRequest() throws Exception {
-        mockMvc.perform(post("/students/add")
+        mMockMvc.perform(post("/students/add")
                 .param("name", "Urist McTester2"))
                 .andDo(print())
                 .andExpect(status().isBadRequest());

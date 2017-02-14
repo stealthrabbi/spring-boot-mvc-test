@@ -1,4 +1,4 @@
-package org.webapp.example.school.web_controllers;
+package org.webapp.example.school.web.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class AbstractControllerTest extends AbstractSpringBootTest {
 
     @Autowired
-    protected MockMvc mockMvc;
+    protected MockMvc mMockMvc;
 
     /**
      * Maps a String of JSON into an instance of a Class of type T. Uses a

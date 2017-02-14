@@ -1,11 +1,17 @@
-package org.webapp.example.school.web_controllers;
+package org.webapp.example.school.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.webapp.example.school.data.repository.StudentRepository;
 import org.webapp.example.school.domain.Student;
 
@@ -45,7 +51,13 @@ public class StudentController {
     }
 
 
-    // Use ResponseEntity<> here to return a non-OK code when student is not found.
+    /**
+     * Gets student by name.
+     * Uses ResponseEntity<> here to return a non-OK code when student is not found.
+     *
+     * @param name student name
+     * @return Response Entity containing student record if found, and status code.
+     */
     @GetMapping(value = "{name}")
     public ResponseEntity<?> getStudent(@PathVariable String name) {
         Student student = mStudentRepository.getStudent(name);
@@ -56,6 +68,11 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
+    /**
+     * Adds a student.
+     * @param student the student to add
+     * @return Response Entity containing student record if found, and status code.
+     */
     @PostMapping(value = "add")
     public ResponseEntity<?> addStudent(@ModelAttribute Student student) {
         if (null == student || StringUtils.isEmpty(student.getName())
