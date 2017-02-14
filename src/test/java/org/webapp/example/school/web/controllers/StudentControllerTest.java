@@ -63,8 +63,6 @@ public class StudentControllerTest extends AbstractControllerTest {
         when(mStudentRepository.getStudent("Peter Venkman")).thenReturn(mStudentList.get(1));
     }
 
-
-
     @Test
     public void listStudents() throws Exception {
         MvcResult result =
@@ -72,15 +70,8 @@ public class StudentControllerTest extends AbstractControllerTest {
             .andDo(print())
             .andExpect(jsonPath("$", hasSize(mStudentList.size())))
             .andExpect(jsonPath("$.[*].name", hasItems("Peter Venkman", "Egon Spengler", "Raymond Stantz", "Winston Zeddemore")))
-
-            // doesn't work
-//            .andExpect(jsonPath("$.[*]", hasItems(mStudentList.toArray())))
-            // doesn't work
-//            .andExpect(jsonPath("$.[*]", hasItems(mStudentList.get(0))))
-
             .andExpect(status().isOk())
                 .andReturn();
-
 
         // alternate way of verifying, convert JSON to list of objects, and verify.
         String content = result.getResponse().getContentAsString();
