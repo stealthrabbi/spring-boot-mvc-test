@@ -13,7 +13,10 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
+
+// analysis stuff
 apply plugin: 'findbugs'
+apply plugin: 'pmd'
 
 // Note: to run spring boot app, just type `./gradlew bootRun`, and browse http://localhost:8080/
 // to build and test, run ./gradlew build
