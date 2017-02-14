@@ -25,7 +25,7 @@ public class Student {
 
     public Student(String mName, Date mBirthDate, String mSocialSecurityNumber) {
         this.mName = mName;
-        this.mBirthDate = mBirthDate;
+        this.mBirthDate = (Date) mBirthDate.clone();
         this.mSocialSecurityNumber = mSocialSecurityNumber;
     }
 
@@ -42,11 +42,16 @@ public class Student {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     @JsonProperty("DOB")
     public Date getBirthDate() {
-        return mBirthDate;
+        if (null != mBirthDate) {
+            return (Date) mBirthDate.clone();
+        }
+        return null;
     }
 
-    public void setBirthDate(Date mBirthDate) {
-        this.mBirthDate = mBirthDate;
+    public void setBirthDate(Date birthDate) {
+        if (null != birthDate) {
+            this.mBirthDate = (Date) birthDate.clone();
+        }
     }
 
     @JsonProperty("SSN")
