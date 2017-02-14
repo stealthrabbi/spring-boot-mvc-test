@@ -1,4 +1,4 @@
-package org.webapp.example.school.domain_model;
+package org.webapp.example.school.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,25 +20,46 @@ public class Student {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
+    /**
+     * Constructor.
+     */
     public Student() {
     }
 
-    public Student(String mName, Date mBirthDate, String mSocialSecurityNumber) {
-        this.mName = mName;
-        this.mBirthDate = (Date) mBirthDate.clone();
-        this.mSocialSecurityNumber = mSocialSecurityNumber;
+    /**
+     * Constructor.
+     * @param name name
+     * @param birthDate birth date
+     * @param socialSecurityNumber SSN
+     */
+    public Student(String name, Date birthDate, String socialSecurityNumber) {
+        this.mName = name;
+        this.mBirthDate = (Date) birthDate.clone();
+        this.mSocialSecurityNumber = socialSecurityNumber;
     }
 
+    /**
+     * Gets name.
+     * @return name
+     */
     public String getName() {
         return mName;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
+    /**
+     * Sets name.
+     * @param name name
+     */
+    public void setName(String name) {
+        this.mName = name;
     }
 
-    // without JsonFormat, it would return as the default serialization for Date, which would be ms since epoch.
-    // that's probably a preferable format, but this is stricly for demonstrative purposes with Jackson
+    /**
+     * Gets the date.
+     * Without JsonFormat, it would return as the default serialization for Date, which would be ms since epoch.
+     * that's probably a preferable format, but this is stricly for demonstrative purposes with Jackson
+     * @return the date
+     */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     @JsonProperty("DOB")
     public Date getBirthDate() {
@@ -48,18 +69,30 @@ public class Student {
         return null;
     }
 
+    /**
+     * Sets birth date.
+     * @param birthDate the birth date
+     */
     public void setBirthDate(Date birthDate) {
         if (null != birthDate) {
             this.mBirthDate = (Date) birthDate.clone();
         }
     }
 
+    /**
+     * Gets the SSN.
+     * @return the ssn.
+     */
     @JsonProperty("SSN")
     public String getSocialSecurityNumber() {
         return mSocialSecurityNumber;
     }
 
-    public void setSocialSecurityNumber(String mSocialSecurityNumber) {
-        this.mSocialSecurityNumber = mSocialSecurityNumber;
+    /**
+     * Sets the SSN.
+     * @param socialSecurityNumber the ssn
+     */
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.mSocialSecurityNumber = socialSecurityNumber;
     }
 }

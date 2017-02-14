@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.webapp.example.school.data_repository.StudentRepository;
-import org.webapp.example.school.domain_model.Student;
+import org.webapp.example.school.data.repository.StudentRepository;
+import org.webapp.example.school.domain.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,7 +1,7 @@
-package org.webapp.example.school.data_repository;
+package org.webapp.example.school.data.repository;
 
 import org.springframework.stereotype.Component;
-import org.webapp.example.school.domain_model.Student;
+import org.webapp.example.school.domain.Student;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +12,9 @@ import java.util.List;
 public class StudentRepositoryImpl implements StudentRepository {
     private final ArrayList<Student> mStudentList;
 
+    /**
+     * Constructor.
+     */
     public StudentRepositoryImpl() {
         mStudentList = new ArrayList<Student>();
         mStudentList.add(new Student("Steve", new Date(), "123-45-6789"));
@@ -26,7 +29,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Student getStudent(String name) {
-        for(Student student : mStudentList) {
+        for (Student student : mStudentList) {
             if (student.getName().equals(name)) {
                 return student;
             }

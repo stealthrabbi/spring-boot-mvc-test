@@ -7,8 +7,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MvcResult;
-import org.webapp.example.school.data_repository.StudentRepository;
-import org.webapp.example.school.domain_model.Student;
+import org.webapp.example.school.data.repository.StudentRepository;
+import org.webapp.example.school.domain.Student;
 
 
 import java.util.ArrayList;
