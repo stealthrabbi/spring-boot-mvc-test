@@ -47,8 +47,10 @@ tasks.withType(Checkstyle) {
 }
 
 checkstyle {
-    toolVersion "7.5"
+    toolVersion "7.5.1"
     ignoreFailures false
+    maxErrors = 0
+    maxWarnings = 0
 }
 
 dependencies {
