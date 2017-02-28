@@ -14,6 +14,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * A data accessing Student Repository implementation. Uses wired in SessionFacotry from Spring/Hibernate.
+ */
 @Component
 @Transactional
 public class StudentRepositoryImpl implements StudentRepository {

@@ -10,6 +10,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 @Configuration
 public class DataBeans {
 
+    /**
+     * This bean needs to be wired in so that a SessionFactory can be wired in to other data access beans.
+     *
+     * @return a session factory bean
+     */
     @Bean
     public HibernateJpaSessionFactoryBean sessionFactory() {
         return new HibernateJpaSessionFactoryBean();
