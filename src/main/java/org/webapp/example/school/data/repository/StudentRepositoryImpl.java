@@ -1,44 +1,53 @@
 package org.webapp.example.school.data.repository;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.webapp.example.school.domain.Student;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 @Component
+@Transactional
 public class StudentRepositoryImpl implements StudentRepository {
-    private final ArrayList<Student> mStudentList;
+
+    private final SessionFactory mSessionFactory;
 
     /**
      * Constructor.
      */
-    public StudentRepositoryImpl() {
-        mStudentList = new ArrayList<Student>();
-        mStudentList.add(new Student("Steve", new Date(), "123-45-6789"));
-        mStudentList.add(new Student("Martin Fowler", new Date(), "999-45-6789"));
-        mStudentList.add(new Student("Leeroy Jenkins", new GregorianCalendar(2005, 5, 11).getTime(), "000-00-0001"));
+    @Autowired
+    public StudentRepositoryImpl(SessionFactory sessionFactory) {
+        mSessionFactory = sessionFactory;
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return mStudentList;
+        return mSessionFactory.getCurrentSession().createCriteria(Student.class).list();
     }
 
     @Override
     public Student getStudent(String name) {
-        for (Student student : mStudentList) {
-            if (student.getName().equals(name)) {
-                return student;
-            }
+        List studentList = mSessionFactory.getCurrentSession()
+                .createCriteria(Student.class)
+                .add(Restrictions.like("name", name))
+                .list();
+
+        if (!CollectionUtils.isEmpty(studentList)) {
+            return (Student) studentList.get(0);
         }
         return null;
     }
 
     @Override
     public void addStudent(Student student) {
-        mStudentList.add(student);
+        mSessionFactory.getCurrentSession().saveOrUpdate(student);
     }
 }

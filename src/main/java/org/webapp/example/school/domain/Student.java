@@ -3,6 +3,11 @@ package org.webapp.example.school.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -10,11 +15,22 @@ import java.util.Date;
  * pulls the values from fields. If I put the {@link JsonProperty} on the fields, then I'd see the properties
  * twice in the JSON (different names). I'd rather stay with the default, so the properties are named on the getters.
  */
+@Entity
 public class Student {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
+    private long mId;
+
     // Note, these Jackson JSON Properties are optional. Without them, they use the java field name.
+    @Column
     private String mName;
+
+    @Column
     private Date mBirthDate;
+
+    @Column
     private String mSocialSecurityNumber;
 
 
@@ -36,6 +52,22 @@ public class Student {
         this.mName = name;
         this.mBirthDate = (Date) birthDate.clone();
         this.mSocialSecurityNumber = socialSecurityNumber;
+    }
+
+    /**
+     * Gets the ID.
+     * @return the ID
+     */
+    public long getId() {
+        return mId;
+    }
+
+    /**
+     * Sets the ID.
+     * @param id the ID
+     */
+    public void setId(long id) {
+        mId = id;
     }
 
     /**
