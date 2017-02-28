@@ -37,7 +37,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     public Student getStudent(String name) {
         List studentList = mSessionFactory.getCurrentSession()
                 .createCriteria(Student.class)
-                .add(Restrictions.like("name", name))
+                .add(Restrictions.like("mName", name))
                 .list();
 
         if (!CollectionUtils.isEmpty(studentList)) {
