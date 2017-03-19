@@ -67,6 +67,10 @@ checkstyle {
     maxWarnings = 0
 }
 
+// attach celient-dependeices tasks to standard gradle tasks
+processResources.dependsOn clientInstall
+clean.dependsOn clientClean
+
 dependencies {
 
     // spring-boot contains many spring components, such as core spring, spring mvc, spring test
