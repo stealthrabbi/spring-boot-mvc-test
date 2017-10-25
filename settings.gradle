@@ -1,2 +1,5 @@
 rootProject.name = 'spring-boot-mvc-test'
 
+include 'frontend'
+
+
