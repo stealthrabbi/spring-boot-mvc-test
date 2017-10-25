@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "my-app"
+    "name": "frontend"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../src/main/resources/static",
       "assets": [
         "assets",
         "favicon.ico"
@@ -55,6 +55,9 @@
   },
   "defaults": {
     "styleExt": "css",
+    "class": {
+      "spec": false
+    },
     "component": {}
   }
 }

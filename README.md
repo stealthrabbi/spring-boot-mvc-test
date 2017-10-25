@@ -33,3 +33,6 @@ View the `test` package to see Spring Tests for the Controllers.
 `AbstractControllerTest` sets up a MockMvc to invoke calls on the REST interface.
 `StudentControllerTest` tests the `StudentController` Controller. It creates a mockito mock for the `StudentRepository` and injects it in to the controller. MockMvc is used to invoke calls on the REST interface and check returned JSON values.
 
+
+
+# angular 4 app generated via http://www.umeshmorsu.com/2017/04/28/spring-boot-and-angular-cli-example/

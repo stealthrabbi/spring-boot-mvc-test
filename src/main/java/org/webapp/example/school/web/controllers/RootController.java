@@ -21,7 +21,7 @@ public class RootController {
      * Returns basic greeting for browsing the root.
      * @return the HTML text to render
      */
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(value = "test-load", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String greeting() {
 
         String webAppName = String.format("%s (%s}", mAppPropertiesContainer.getShortAppName(),

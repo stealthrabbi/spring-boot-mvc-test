@@ -1,3 +1,13 @@
+buildscript {
+//    maven {
+//        url "https://plugins.gradle.org/m2/"
+//    }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
+    }
+}
+
+
 plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE'
 //    id 'com.craigburke.client-dependencies' version '1.4.0'
@@ -17,6 +27,7 @@ apply plugin: 'war'
 apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
+apply plugin: "com.moowork.node"
 
 // Note: to run spring boot app, just type `./gradlew bootRun`, and browse http://localhost:8080/
 // to build and test, run ./gradlew build
@@ -34,6 +45,34 @@ apina {
 war {
     baseName = 'MyStudentTestApp'
     version =  '1.0.0'
+}
+
+// client build tasks...
+
+node
+        {
+            version = "7.5.0"
+            download = true
+            nodeModulesDir = file("frontend")
+        }
+
+task buildClientDev(type: NpmTask, dependsOn: 'npmInstall') {
+    group = 'build'
+    description = 'Compile client side folder for development'
+    args = ['run','buildDev']
+}
+
+
+task buildClientWatch(type: NpmTask, dependsOn: 'npmInstall') {
+    group = 'application'
+    description = "Build and watches the client side assets for rebuilding"
+    args = ['run','buildWatch']
+}
+
+task buildClient(type:NpmTask, dependsOn:'npmInstall') {
+    group = 'build'
+    description = "Compile client side folder for production"
+    args = ['run','build']
 }
 
 tasks.withType(FindBugs) {
@@ -56,6 +95,10 @@ checkstyle {
     maxErrors = 0
     maxWarnings = 0
 }
+
+
+bootRun.dependsOn(buildClientDev)
+jar.dependsOn(buildClient)
 
 dependencies {
 
