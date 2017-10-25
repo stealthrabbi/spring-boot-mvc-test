@@ -21,9 +21,14 @@
 <h3>students here:</h3>
 {{ studentList }}
 
-<ul>
-  <li *ngFor="let student of studentList">
-    {{ student.name }}
-  </li>
-</ul>
+<!--<ul>-->
+  <!--<li *ngFor="let student of studentList">-->
+    <!--{{ student.name }}-->
+  <!--</li>-->
+<!--</ul>-->
+<div style="width: 900px;">
+  <ag-grid-angular style="width: 100%; height: 200px;" class="ag-fresh"
+                   [gridOptions]="gridOptions">
 
+  </ag-grid-angular>
+</div>

@@ -2,6 +2,7 @@
 
 .idea/
 out/
+*.iml
 
 #angular 4 generated files
 src/main/resources/static
