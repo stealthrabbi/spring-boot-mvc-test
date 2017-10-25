@@ -42,7 +42,7 @@ public class RootControllerTest extends AbstractControllerTest {
     @Test
     public void greeting() throws Exception {
 
-        mMockMvc.perform(get("/"))
+        mMockMvc.perform(get("/test-load"))
                 .andDo(print())
                 .andExpect(content().string(containsString(TEST_NAME)))
                 .andExpect(content().string(containsString(TEST_SHORT_NAME)))
