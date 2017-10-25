@@ -3,6 +3,9 @@
 .idea/
 out/
 
+#angular 4 generated files
+src/main/resources/static
+
 #gradle stuff #
 
 .gradle
@@ -23,6 +26,7 @@ gradle-app.setting
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
 
 
 
