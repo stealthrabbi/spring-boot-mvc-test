@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback file for ch.qos.logback, spring-boot's default log implementation used by slf4j -->
+<configuration scan="true" scanPeriod="5 seconds">
+    <contextName>SpringBootTestApp</contextName>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/${CONTEXT_NAME}.log.txt</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>logs/${CONTEXT_NAME}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+
+            <!-- set max size per file, total files, and number of files to keep -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- everything not referenced in a specific logger name below goes to the root logger -->
+    <root level="DEBUG">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="org.hibernate">
+        <level value="WARN"/>
+    </logger>
+    <logger name="org.springframework">
+        <level value="WARN"/>
+    </logger>
+
+</configuration>

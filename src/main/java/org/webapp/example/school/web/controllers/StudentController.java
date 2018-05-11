@@ -1,5 +1,7 @@
 package org.webapp.example.school.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import java.util.List;
 @RequestMapping("students")
 public class StudentController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
+
     // This will auto convert a string matching the specified date format in to a java.util.Date.
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -41,6 +45,7 @@ public class StudentController {
     // more and more autowired fields.
     @Autowired
     public StudentController(StudentRepository studentRepository) {
+        LOGGER.info("initialized {} at {}", StudentRepository.class, new Date());
         mStudentRepository = studentRepository;
     }
 
@@ -60,6 +65,7 @@ public class StudentController {
      */
     @GetMapping(value = "{name}")
     public ResponseEntity<?> getStudent(@PathVariable String name) {
+        LOGGER.info("getting student: " + name);
         Student student = mStudentRepository.getStudent(name);
 
         if (null == student) {
@@ -75,6 +81,8 @@ public class StudentController {
      */
     @PostMapping(value = "add")
     public ResponseEntity<?> addStudent(@ModelAttribute Student student) {
+
+        LOGGER.info("adding student " + student.getName());
         if (null == student || StringUtils.isEmpty(student.getName())
                             || StringUtils.isEmpty(student.getBirthDate())
                             || StringUtils.isEmpty(student.getSocialSecurityNumber())) {
