@@ -82,12 +82,12 @@ public class StudentController {
     @PostMapping(value = "add")
     public ResponseEntity<?> addStudent(@ModelAttribute Student student) {
 
-        LOGGER.info("adding student " + student.getName());
         if (null == student || StringUtils.isEmpty(student.getName())
                             || StringUtils.isEmpty(student.getBirthDate())
                             || StringUtils.isEmpty(student.getSocialSecurityNumber())) {
             return ResponseEntity.badRequest().body("no student given");
         }
+        LOGGER.info("adding student {}", student.getName());
         mStudentRepository.addStudent(student);
         return ResponseEntity.ok(student);
     }
