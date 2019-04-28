@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: "/students/list"
+        url: "students/list"
     }).then(function(data) {
         console.log(data);
 

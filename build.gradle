@@ -15,8 +15,6 @@ apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 
-mainClassName = "org.webapp.example.school.AppBootMain"
-
 // Note: to run spring boot app, just type `./gradlew bootRun`, and browse http://localhost:8080/
 // to build and test, run ./gradlew build
 // clean, run ./gradlew clean
