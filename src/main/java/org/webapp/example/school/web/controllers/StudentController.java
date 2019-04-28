@@ -24,7 +24,7 @@ import java.util.List;
 // This marks it as a Controller, and also makes methods return JSON by default and eliminates the need for making
 // return values with @ResponseBody
 @RestController
-@RequestMapping("students")
+@RequestMapping("/students")
 public class StudentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
@@ -50,7 +50,7 @@ public class StudentController {
     }
 
     // ResponseBody is sufficent, because we'll always return a 200-OK response
-    @GetMapping(value = "list")
+    @GetMapping(value = "/list")
     public List<Student> listStudents() {
         return mStudentRepository.getAllStudents();
     }

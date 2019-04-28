@@ -20,9 +20,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // Identifies this spring file as one that scans for components using a configuration (either manually by package,
 // or via @EnableAutConfiguration
 //
-// Note: Here be dragons. sdfsfsf
+// Note: Here be dragons.
 @SpringBootApplication
 public class AppBootMain {
+
     public static void main(String[] args) {
         SpringApplication.run(AppBootMain.class, args);
     }
