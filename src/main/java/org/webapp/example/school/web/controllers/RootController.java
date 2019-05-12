@@ -29,6 +29,7 @@ public class RootController {
         return "If you're reading this, the " + webAppName +  "is on. <BR><BR>"
                 + "Trying viewing students <a href = students/list>here</a> <BR><BR>"
                 + "Or viewing a <a href = students/Steve>specific student</a>. <BR><BR>"
-                + "For extra credit, here's an <a href = student-records.html>HTML page making a rest call using jQuery</a>";
+                + "For extra credit, here's an <a href = student-records.html>HTML page making a rest call using jQuery</a> <BR><BR>"
+                + "And here's a <a href = vue-test.html>test page for vue.js </a>.";
     }
 }
